@@ -1,6 +1,7 @@
 import { useCallback, useLayoutEffect, useState } from "react";
 import {
   ActivityIndicator,
+  Image,
   ScrollView,
   StyleSheet,
   Text,
@@ -68,6 +69,14 @@ export function BowlDetailScreen({ route, navigation }: Props) {
       contentContainerStyle={styles.scroll}
       showsVerticalScrollIndicator={false}
     >
+      {bowl.photoUri ? (
+        <Image
+          source={{ uri: bowl.photoUri }}
+          style={styles.hero}
+          resizeMode="cover"
+          accessibilityLabel={`Photo of ${bowl.name}`}
+        />
+      ) : null}
       <Text style={styles.summaryLabel}>Summary</Text>
       <Text style={styles.summary}>{insight.summary}</Text>
 
@@ -119,6 +128,13 @@ function Row({ label, value }: { label: string; value: string }) {
 
 const styles = StyleSheet.create({
   scroll: { padding: 20, paddingBottom: 40 },
+  hero: {
+    width: "100%",
+    height: 220,
+    borderRadius: theme.radiusL,
+    backgroundColor: theme.border,
+    marginBottom: 20,
+  },
   centered: {
     flex: 1,
     alignItems: "center",

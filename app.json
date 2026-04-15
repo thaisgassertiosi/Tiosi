@@ -14,6 +14,15 @@
     },
     "android": {
       "package": "com.tiosi.app"
-    }
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Tiosi saves a photo of your bowl in your library on this device only.",
+          "cameraPermission": "Tiosi can photograph your bowl to save with your library entry."
+        }
+      ]
+    ]
   }
 }

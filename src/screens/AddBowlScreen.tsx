@@ -1,17 +1,22 @@
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useState } from "react";
 import {
+  Alert,
+  Image,
   KeyboardAvoidingView,
   Platform,
+  Pressable,
   ScrollView,
   StyleSheet,
   Text,
   TextInput,
   View,
 } from "react-native";
+import * as ImagePicker from "expo-image-picker";
 import { PrimaryButton } from "../components/PrimaryButton";
 import { SimpleSelect } from "../components/SimpleSelect";
 import type { RootStackParamList } from "../navigation/types";
+import { persistBowlPhoto } from "../storage/bowlPhoto";
 import { addBowl } from "../storage/bowlsStorage";
 import type { Bowl } from "../types/bowl";
 import { theme } from "../theme";
@@ -42,8 +47,64 @@ export function AddBowlScreen({ navigation }: Props) {
   const [note, setNote] = useState<string | null>(null);
   const [size, setSize] = useState<number | null>(null);
   const [tagRaw, setTagRaw] = useState("");
+  const [pickedUri, setPickedUri] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+
+  const openPicker = async (source: "library" | "camera") => {
+    setError(null);
+    if (source === "library") {
+      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== "granted") {
+        setError("Photo library access is needed to attach a bowl photo.");
+        return;
+      }
+      const res = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 0.85,
+      });
+      if (!res.canceled && res.assets[0]?.uri) {
+        setPickedUri(res.assets[0].uri);
+      }
+      return;
+    }
+
+    const { status } = await ImagePicker.requestCameraPermissionsAsync();
+    if (status !== "granted") {
+      setError("Camera access is needed to photograph your bowl.");
+      return;
+    }
+    const res = await ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 0.85,
+    });
+    if (!res.canceled && res.assets[0]?.uri) {
+      setPickedUri(res.assets[0].uri);
+    }
+  };
+
+  const choosePhoto = () => {
+    const buttons: {
+      text: string;
+      style?: "destructive" | "cancel";
+      onPress?: () => void;
+    }[] = [
+      { text: "Photo library", onPress: () => void openPicker("library") },
+      { text: "Camera", onPress: () => void openPicker("camera") },
+    ];
+    if (pickedUri) {
+      buttons.push({
+        text: "Remove photo",
+        style: "destructive",
+        onPress: () => setPickedUri(null),
+      });
+    }
+    buttons.push({ text: "Cancel", style: "cancel" });
+    Alert.alert("Bowl photo", "Add an image for your library (optional).", buttons);
+  };
 
   const onSave = async () => {
     setError(null);
@@ -66,13 +127,27 @@ export function AddBowlScreen({ navigation }: Props) {
       return;
     }
 
+    const id = newId();
+    let photoUri: string | null | undefined;
+    if (pickedUri) {
+      const saved = await persistBowlPhoto(id, pickedUri);
+      photoUri = saved ?? undefined;
+      if (!saved) {
+        Alert.alert(
+          "Photo not saved",
+          "Your bowl will still be saved without a photo — this device could not copy the image into app storage.",
+        );
+      }
+    }
+
     const bowl: Bowl = {
-      id: newId(),
+      id,
       name: trimmedName,
       note,
       size,
       tagNumber,
       createdAt: new Date().toISOString(),
+      ...(photoUri ? { photoUri } : {}),
     };
 
     setSaving(true);
@@ -99,6 +174,26 @@ export function AddBowlScreen({ navigation }: Props) {
           Add the details from your tag. There is no wrong bowl — only honest
           listening.
         </Text>
+
+        <Text style={styles.label}>Photo (optional)</Text>
+        <Text style={styles.photoHint}>
+          Saved on this device with your library — not uploaded to a server.
+        </Text>
+        {pickedUri ? (
+          <View style={styles.previewWrap}>
+            <Image source={{ uri: pickedUri }} style={styles.preview} />
+            <Pressable onPress={choosePhoto} style={styles.changePhoto}>
+              <Text style={styles.changePhotoText}>Change or remove photo</Text>
+            </Pressable>
+          </View>
+        ) : (
+          <PrimaryButton
+            label="Add bowl photo"
+            variant="ghost"
+            onPress={choosePhoto}
+            style={{ marginBottom: 16 }}
+          />
+        )}
 
         <Text style={styles.label}>Name</Text>
         <TextInput
@@ -164,6 +259,25 @@ const styles = StyleSheet.create({
     marginBottom: 6,
     letterSpacing: 0.3,
     textTransform: "uppercase",
+  },
+  photoHint: {
+    fontSize: 13,
+    color: theme.muted,
+    marginBottom: 10,
+    lineHeight: 18,
+  },
+  previewWrap: { marginBottom: 20 },
+  preview: {
+    width: "100%",
+    height: 200,
+    borderRadius: theme.radiusL,
+    backgroundColor: theme.border,
+  },
+  changePhoto: { marginTop: 10, alignSelf: "flex-start" },
+  changePhotoText: {
+    fontSize: 14,
+    color: theme.text,
+    textDecorationLine: "underline",
   },
   input: {
     borderWidth: 1,

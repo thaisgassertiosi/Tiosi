@@ -38,7 +38,8 @@ You should get a **`dist`** folder with `index.html` inside.
 
 - Expo SDK 52
 - React Navigation (native stack)
-- AsyncStorage for saved bowls
+- AsyncStorage for saved bowls (metadata JSON on device)
+- Optional **bowl photos**: picked from library or camera, copied into app document storage (`expo-file-system`), URI stored on each bowl — **local only**, not uploaded to a remote database
 - **Web:** `react-dom` + `react-native-web` for static export
 
 ## Project layout

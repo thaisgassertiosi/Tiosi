@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
+  Image,
   Pressable,
   RefreshControl,
   StyleSheet,
@@ -87,11 +88,26 @@ export function LibraryScreen({ navigation }: Props) {
               pressed && { opacity: 0.92 },
             ]}
           >
-            <Text style={styles.cardTitle}>{item.name}</Text>
-            <Text style={styles.cardMeta}>
-              {item.note} · {item.size}"
-            </Text>
-            <Text style={styles.cardDesc}>{insight.descriptor}</Text>
+            <View style={styles.cardRow}>
+              {item.photoUri ? (
+                <Image
+                  source={{ uri: item.photoUri }}
+                  style={styles.thumb}
+                  accessibilityLabel={`Photo of ${item.name}`}
+                />
+              ) : (
+                <View style={styles.thumbPlaceholder}>
+                  <Text style={styles.thumbMark}>◯</Text>
+                </View>
+              )}
+              <View style={styles.cardText}>
+                <Text style={styles.cardTitle}>{item.name}</Text>
+                <Text style={styles.cardMeta}>
+                  {item.note} · {item.size}"
+                </Text>
+                <Text style={styles.cardDesc}>{insight.descriptor}</Text>
+              </View>
+            </View>
           </Pressable>
         );
       }}
@@ -112,17 +128,36 @@ const styles = StyleSheet.create({
     borderRadius: theme.radiusL,
     borderWidth: 1,
     borderColor: theme.border,
-    padding: 16,
+    padding: 14,
     marginBottom: 12,
   },
+  cardRow: { flexDirection: "row", gap: 14, alignItems: "center" },
+  thumb: {
+    width: 72,
+    height: 72,
+    borderRadius: theme.radiusM,
+    backgroundColor: theme.border,
+  },
+  thumbPlaceholder: {
+    width: 72,
+    height: 72,
+    borderRadius: theme.radiusM,
+    backgroundColor: theme.bg,
+    borderWidth: 1,
+    borderColor: theme.border,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  thumbMark: { fontSize: 22, color: theme.accentSoft },
+  cardText: { flex: 1, minWidth: 0 },
   cardTitle: {
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: "600",
     color: theme.text,
     marginBottom: 4,
   },
-  cardMeta: { fontSize: 14, color: theme.muted, marginBottom: 8 },
-  cardDesc: { fontSize: 14, color: theme.accent, lineHeight: 20 },
+  cardMeta: { fontSize: 13, color: theme.muted, marginBottom: 6 },
+  cardDesc: { fontSize: 13, color: theme.accent, lineHeight: 18 },
   emptyWrap: {
     flex: 1,
     backgroundColor: theme.bg,
