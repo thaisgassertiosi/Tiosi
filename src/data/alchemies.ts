@@ -1,68 +1,36 @@
-export type AlchemyEntry = {
-  name: string;
-  keywords: string;
-  description: string;
-};
+import type { AlchemyEntry } from "../types/alchemyEntry";
+import { mixedAlchemyComboEntries } from "./alchemiesMixedCombos";
+import { alchemySignatureEntries } from "./alchemiesSignatures";
 
-export const alchemies: AlchemyEntry[] = [
+export type { AlchemyEntry } from "../types/alchemyEntry";
+
+/** Extra names users often type that are not a separate row on the signature sheet. */
+const aliasEntries: AlchemyEntry[] = [
   {
-    name: "Platinum",
-    keywords: "calm, harmony, emotional balance",
+    name: "Ruby Mother of Platinum",
+    keywords: "vitality, compassion, divine feminine, Venus",
     description:
-      "brings calm, energetic harmony, and emotional balance while helping align the subtle energy field",
-  },
-  {
-    name: "Sedona Red Rock",
-    keywords: "transformation, grounding, clarity",
-    description:
-      "brings grounding transformation, clarity, presence, and ancient remembering",
-  },
-  {
-    name: "Abalone",
-    keywords: "compassion, emotional healing, intuition",
-    description:
-      "supports emotional healing, compassion, intuitive depth, and oceanic flow",
-  },
-  {
-    name: "Amethyst",
-    keywords: "intuition, calmness, clarity",
-    description:
-      "supports spiritual connection, calmness, clarity, and inner balance",
-  },
-  {
-    name: "Mother of Platinum",
-    keywords: "compassion, worthiness, emotional balance",
-    description:
-      "supports emotional balance, compassion, self-love, and connection to gentle divine feminine energy",
-  },
-  {
-    name: "Ruby",
-    keywords: "vitality, passion, courage",
-    description:
-      "supports vitality, courage, passion, and empowered life force",
-  },
-  {
-    name: "Pink Aura Gold",
-    keywords: "unconditional love, harmony, softness",
-    description:
-      "brings heart-centered love, softness, and emotional harmony",
-  },
-  {
-    name: "Ocean Gold",
-    keywords: "communication, flow, love",
-    description:
-      "supports loving communication, energetic flow, and authenticity",
-  },
-  {
-    name: "Green Heart Aura Gold",
-    keywords: "love, compassion, oneness",
-    description:
-      "opens the heart to giving and receiving love and deeper universal connection",
-  },
-  {
-    name: "Kunzite",
-    keywords: "divine love, openness, companionship",
-    description:
-      "supports heart opening, divine love, softness, and emotional connection",
+      "A path where Ruby’s life force and courage meet Mother of Platinum’s Venusian compassion, emotional balance, and gentle divine feminine field.",
   },
 ];
+
+function mergeByName(...groups: AlchemyEntry[][]): AlchemyEntry[] {
+  const map = new Map<string, AlchemyEntry>();
+  for (const group of groups) {
+    for (const e of group) {
+      const k = e.name.trim().toLowerCase();
+      if (!map.has(k)) map.set(k, e);
+    }
+  }
+  return [...map.values()];
+}
+
+/**
+ * Master list for `matchAlchemy`. Order: signature singles first, then mixed
+ * combo rows, then aliases (only if name not already present).
+ */
+export const alchemies: AlchemyEntry[] = mergeByName(
+  alchemySignatureEntries,
+  mixedAlchemyComboEntries,
+  aliasEntries,
+);

@@ -44,7 +44,7 @@ You should get a **`dist`** folder with `index.html` inside.
 
 ## Project layout
 
-- `src/data` — notes, tunings, alchemies
+- `src/data` — notes, tunings, alchemies (expanded from your **Alchemy Signature** + **Mixed Alchemy Bowls** reference PDFs for matching and copy)
 - `src/utils` — interpretation + insight generation
 - `src/storage` — load/save bowls
 - `src/screens` — Home, Add Bowl, Library, Bowl Detail
