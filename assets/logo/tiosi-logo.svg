@@ -1,0 +1,12 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1024" height="1024" rx="88" fill="#F8F3EA"/>
+  <circle cx="512" cy="404" r="210" fill="#FFFDF8" stroke="#E7D2AC" stroke-width="4"/>
+  <circle cx="512" cy="404" r="128" fill="none" stroke="#5D496C" stroke-width="8"/>
+  <path d="M372 430C392 504 457 556 534 556C612 556 676 504 696 430" stroke="#B8914F" stroke-width="16" stroke-linecap="round"/>
+  <path d="M400 442H624" stroke="#2F2924" stroke-width="8" stroke-linecap="round"/>
+  <path d="M438 476H586" stroke="#2F2924" stroke-width="8" stroke-linecap="round"/>
+  <path d="M484 346C498 324 526 316 548 330C527 330 508 344 502 366C498 378 497 389 498 402C490 387 486 369 484 346Z" fill="#5D496C"/>
+  <path d="M512 262L520 286L546 286L525 300L533 326L512 311L491 326L499 300L478 286L504 286L512 262Z" fill="#B8914F"/>
+  <text x="512" y="730" text-anchor="middle" font-size="94" letter-spacing="18" font-family="Georgia, 'Times New Roman', serif" fill="#1F1A16">TIOSI</text>
+  <text x="512" y="784" text-anchor="middle" font-size="24" letter-spacing="6" font-family="Helvetica, Arial, sans-serif" fill="#5D496C">SOUND LIBRARY</text>
+</svg>

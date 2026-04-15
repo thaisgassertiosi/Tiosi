@@ -171,8 +171,7 @@ export function AddBowlScreen({ navigation }: Props) {
         keyboardShouldPersistTaps="handled"
       >
         <Text style={styles.lead}>
-          Add the details from your tag. There is no wrong bowl — only honest
-          listening.
+          Enter the details from your bowl tag. Let the information guide you.
         </Text>
 
         <Text style={styles.label}>Photo (optional)</Text>

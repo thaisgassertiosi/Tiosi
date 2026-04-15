@@ -12,13 +12,21 @@ export function HomeScreen({ navigation }: Props) {
     <SafeAreaView style={styles.safe} edges={["top", "left", "right"]}>
       <View style={styles.inner}>
         <View style={styles.halo} />
+        <View style={styles.logoSeal}>
+          <Text style={styles.logoGlyph}>◉</Text>
+        </View>
         <Text style={styles.mark}>✶</Text>
         <Text style={styles.title}>Tiosi</Text>
         <Text style={styles.subtitle}>Sound Library</Text>
         <Text style={styles.tagline}>
-          A quiet companion for Crystal Tones bowls — name what you hold, listen
-          with clarity.
+          A quiet companion for Crystal Tones bowls — bringing clarity to what
+          you hold.
         </Text>
+        <View style={styles.moonRow}>
+          <Text style={styles.moonDot}>◐</Text>
+          <Text style={styles.moonDot}>◑</Text>
+          <Text style={styles.moonDot}>◒</Text>
+        </View>
         <View style={styles.actions}>
           <PrimaryButton
             label="Add Bowl"
@@ -59,6 +67,22 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     textAlign: "center",
   },
+  logoSeal: {
+    width: 72,
+    height: 72,
+    borderRadius: 36,
+    borderWidth: 1,
+    borderColor: theme.goldSoft,
+    backgroundColor: theme.surfaceSoft,
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+    marginBottom: 10,
+  },
+  logoGlyph: {
+    fontSize: 22,
+    color: theme.purple,
+  },
   title: {
     fontSize: 42,
     letterSpacing: 2.4,
@@ -81,6 +105,16 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     color: theme.text,
     textAlign: "center",
+  },
+  moonRow: {
+    marginTop: 14,
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 12,
+  },
+  moonDot: {
+    color: theme.gold,
+    fontSize: 14,
   },
   actions: { marginTop: 42, gap: 12 },
 });
