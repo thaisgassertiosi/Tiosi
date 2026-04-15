@@ -12,11 +12,34 @@ npx expo start
 
 Then press `i` for iOS simulator, `a` for Android emulator, or scan the QR code with **Expo Go** on your phone.
 
+## Web preview on Vercel
+
+The repo includes **`vercel.json`** so Vercel runs **`npm run build`** (`expo export --platform web`) and publishes the **`dist`** folder.
+
+If you still see **404 NOT_FOUND** after deploy:
+
+1. **Vercel → Project → Settings → General → Build & Output**  
+   - **Framework Preset:** Other  
+   - **Build Command:** `npm run build`  
+   - **Output Directory:** `dist`  
+   - **Install Command:** `npm install`  
+2. Trigger a **Redeploy** of the latest `main` commit.
+
+Local check:
+
+```bash
+npm install
+npm run build
+```
+
+You should get a **`dist`** folder with `index.html` inside.
+
 ## Stack
 
 - Expo SDK 52
 - React Navigation (native stack)
 - AsyncStorage for saved bowls
+- **Web:** `react-dom` + `react-native-web` for static export
 
 ## Project layout
 
