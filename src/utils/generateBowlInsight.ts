@@ -102,7 +102,7 @@ export function generateBowlInsight(bowl: Bowl): BowlInsight {
           ? "centering"
           : "unique";
 
-  const descriptor = `${firstNoteKeyword} · ${bowl.size}" · ${sizeWord}`;
+  const descriptor = `${firstNoteKeyword} · ${sizeWord}`;
 
   return {
     summary,

@@ -16,6 +16,7 @@ import { loadBowls } from "../storage/bowlsStorage";
 import type { Bowl } from "../types/bowl";
 import { theme } from "../theme";
 import { generateBowlInsight } from "../utils/generateBowlInsight";
+import { interpretTuning } from "../utils/interpretTuning";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Library">;
 
@@ -80,6 +81,7 @@ export function LibraryScreen({ navigation }: Props) {
       }
       renderItem={({ item }) => {
         const insight = generateBowlInsight(item);
+        const tuning = interpretTuning(item.tagNumber);
         return (
           <Pressable
             onPress={() => navigation.navigate("BowlDetail", { id: item.id })}
@@ -103,7 +105,7 @@ export function LibraryScreen({ navigation }: Props) {
               <View style={styles.cardText}>
                 <Text style={styles.cardTitle}>{item.name}</Text>
                 <Text style={styles.cardMeta}>
-                  {item.note} · {item.size}"
+                  {item.note} · {item.size}" · {tuning.centerName}
                 </Text>
                 <Text style={styles.cardDesc}>{insight.descriptor}</Text>
               </View>
