@@ -1,6 +1,7 @@
 import type { AlchemyEntry } from "../types/alchemyEntry";
 import { mixedAlchemyComboEntries } from "./alchemiesMixedCombos";
 import { alchemySignatureEntries } from "./alchemiesSignatures";
+import { alchemySupplementEntries } from "./alchemiesSupplement";
 
 export type { AlchemyEntry } from "../types/alchemyEntry";
 
@@ -32,5 +33,6 @@ function mergeByName(...groups: AlchemyEntry[][]): AlchemyEntry[] {
 export const alchemies: AlchemyEntry[] = mergeByName(
   alchemySignatureEntries,
   mixedAlchemyComboEntries,
+  alchemySupplementEntries,
   aliasEntries,
 );

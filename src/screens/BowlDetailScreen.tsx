@@ -101,7 +101,11 @@ export function BowlDetailScreen({ route, navigation }: Props) {
       <SectionCard title="Alchemy">
         <Text style={styles.body}>{insight.alchemy}</Text>
         {alchemy.kind !== "fallback" ? (
-          <Text style={styles.meta}>Matched as: {alchemy.displayName}</Text>
+          <Text style={styles.meta}>
+            {alchemy.kind === "multi"
+              ? `Matched alchemies: ${alchemy.displayName}`
+              : `Matched as: ${alchemy.displayName}`}
+          </Text>
         ) : null}
       </SectionCard>
 

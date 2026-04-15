@@ -42,10 +42,19 @@ export function generateBowlInsight(bowl: Bowl): BowlInsight {
     tuningText = `Relative to the reference map, this tag ${tuning.relationLabel} ${tuning.centerName} — a wider, more stretching relationship to the usual centers.`;
   }
 
-  const alchemyText =
-    alchemy.kind === "fallback"
-      ? `Your bowl carries the alchemy “${alchemy.displayName}.” When a name is rare in our starter library, trust your hands and ears as the final word.`
-      : capitalizeSentence(alchemy.description) + ".";
+  const alchemyText = (() => {
+    if (alchemy.kind === "fallback") {
+      return `Your bowl carries the alchemy “${alchemy.displayName}.” No matching catalog phrases were found in that text—trust your hands and ears, and add spelling from the tag if you want another match pass.`;
+    }
+    if (alchemy.kind === "multi" && alchemy.components?.length) {
+      const names = alchemy.components.map((c) => c.name).join(", ");
+      const bodies = alchemy.components
+        .map((c) => capitalizeSentence(c.description.trim()) + ".")
+        .join(" ");
+      return `This name carries several alchemies we recognize (${names}). ${bodies}`.trim();
+    }
+    return capitalizeSentence(alchemy.description) + ".";
+  })();
 
   const sizeText = capitalizeSentence(size.body) + ".";
 
@@ -53,7 +62,10 @@ export function generateBowlInsight(bowl: Bowl): BowlInsight {
   const firstAlchemyKeyword =
     alchemy.kind === "fallback"
       ? "its own signature"
-      : alchemy.keywords.split(",")[0]?.trim() ?? "distinct presence";
+      : alchemy.components?.[0]
+        ? alchemy.components[0].keywords.split(",")[0]?.trim() ??
+          "distinct presence"
+        : alchemy.keywords.split(",")[0]?.trim() ?? "distinct presence";
 
   let summary: string;
   if (size.category === "mid") {
