@@ -6,11 +6,18 @@ export type SizeInterpretation = {
   body: string;
 };
 
-const highSizes = new Set([5, 6, 7]);
+const highSizes = new Set([5, 6]);
 const midSizes = new Set([8, 9]);
 const lowSizes = new Set([10, 12]);
 
 export function interpretSize(size: number): SizeInterpretation {
+  if (size === 7) {
+    return {
+      category: "mid",
+      title: "Centering",
+      body: "The 7\" size is read as centering — supporting embodiment, integration, and a steady sense of presence in the body.",
+    };
+  }
   if (highSizes.has(size)) {
     return {
       category: "high",
