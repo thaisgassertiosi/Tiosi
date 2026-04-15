@@ -90,10 +90,11 @@ const styles = StyleSheet.create({
   wrap: { marginBottom: 16 },
   label: {
     fontSize: 13,
-    color: theme.muted,
+    color: theme.purple,
     marginBottom: 6,
-    letterSpacing: 0.3,
+    letterSpacing: 0.6,
     textTransform: "uppercase",
+    fontWeight: "600",
   },
   field: {
     borderWidth: 1,
@@ -101,7 +102,7 @@ const styles = StyleSheet.create({
     borderRadius: theme.radiusM,
     paddingHorizontal: 14,
     paddingVertical: 14,
-    backgroundColor: theme.surface,
+    backgroundColor: theme.surfaceSoft,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -111,7 +112,7 @@ const styles = StyleSheet.create({
   chevron: { fontSize: 14, color: theme.muted, marginLeft: 8 },
   backdrop: {
     flex: 1,
-    backgroundColor: "rgba(44,41,37,0.35)",
+    backgroundColor: "rgba(33,23,37,0.35)",
     justifyContent: "flex-end",
   },
   sheet: {
@@ -122,11 +123,13 @@ const styles = StyleSheet.create({
     paddingTop: 16,
     paddingBottom: 24,
     maxHeight: "60%",
+    borderTopWidth: 1,
+    borderTopColor: theme.goldSoft,
   },
   sheetTitle: {
     fontSize: 16,
-    fontWeight: "600",
-    color: theme.text,
+    fontWeight: "700",
+    color: theme.textDeep,
     marginBottom: 8,
   },
   option: {
@@ -141,5 +144,5 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
   },
-  cancelText: { fontSize: 15, color: theme.muted },
+  cancelText: { fontSize: 15, color: theme.purple, fontWeight: "600" },
 });

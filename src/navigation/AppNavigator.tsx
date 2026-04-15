@@ -13,13 +13,14 @@ export function AppNavigator() {
     <Stack.Navigator
       initialRouteName="Home"
       screenOptions={{
-        headerTintColor: theme.text,
-        headerStyle: { backgroundColor: theme.bg },
+        headerTintColor: theme.textDeep,
+        headerStyle: { backgroundColor: theme.surfaceSoft },
         headerShadowVisible: false,
         headerTitleStyle: {
-          fontWeight: "600",
+          fontWeight: "700",
           fontSize: 17,
-          color: theme.text,
+          color: theme.textDeep,
+          letterSpacing: 0.2,
         },
         contentStyle: { backgroundColor: theme.bg },
       }}

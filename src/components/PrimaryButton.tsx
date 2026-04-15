@@ -49,14 +49,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 8,
     borderWidth: 1,
+    shadowColor: theme.shadow,
+    shadowOpacity: 1,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 6 },
+    elevation: 2,
   },
   primary: {
-    backgroundColor: theme.text,
-    borderColor: theme.text,
+    backgroundColor: theme.purple,
+    borderColor: theme.purple,
   },
   ghost: {
-    backgroundColor: "transparent",
-    borderColor: theme.border,
+    backgroundColor: theme.surfaceSoft,
+    borderColor: theme.goldSoft,
   },
   pressed: {
     opacity: 0.88,
@@ -67,10 +72,10 @@ const styles = StyleSheet.create({
   label: {
     color: theme.surface,
     fontSize: 16,
-    fontWeight: "600",
-    letterSpacing: 0.2,
+    fontWeight: "700",
+    letterSpacing: 0.3,
   },
   labelGhost: {
-    color: theme.text,
+    color: theme.textDeep,
   },
 });

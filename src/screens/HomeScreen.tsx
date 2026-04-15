@@ -11,8 +11,10 @@ export function HomeScreen({ navigation }: Props) {
   return (
     <SafeAreaView style={styles.safe} edges={["top", "left", "right"]}>
       <View style={styles.inner}>
+        <View style={styles.halo} />
         <Text style={styles.mark}>✶</Text>
         <Text style={styles.title}>Tiosi</Text>
+        <Text style={styles.subtitle}>Sound Library</Text>
         <Text style={styles.tagline}>
           A quiet companion for Crystal Tones bowls — name what you hold, listen
           with clarity.
@@ -41,25 +43,44 @@ const styles = StyleSheet.create({
     paddingTop: 32,
     justifyContent: "center",
   },
+  halo: {
+    width: 160,
+    height: 160,
+    borderRadius: 80,
+    backgroundColor: theme.purpleSoft,
+    position: "absolute",
+    top: "24%",
+    alignSelf: "center",
+    opacity: 0.3,
+  },
   mark: {
-    fontSize: 22,
-    color: theme.accentSoft,
+    fontSize: 24,
+    color: theme.gold,
     marginBottom: 12,
     textAlign: "center",
   },
   title: {
     fontSize: 42,
-    letterSpacing: 2,
-    color: theme.text,
+    letterSpacing: 2.4,
+    color: theme.textDeep,
     textAlign: "center",
-    fontWeight: "300",
+    fontWeight: "500",
+  },
+  subtitle: {
+    marginTop: 8,
+    fontSize: 12,
+    color: theme.purple,
+    textAlign: "center",
+    letterSpacing: 2.1,
+    textTransform: "uppercase",
+    fontWeight: "700",
   },
   tagline: {
     marginTop: 16,
     fontSize: 16,
     lineHeight: 24,
-    color: theme.muted,
+    color: theme.text,
     textAlign: "center",
   },
-  actions: { marginTop: 40, gap: 12 },
+  actions: { marginTop: 42, gap: 12 },
 });
